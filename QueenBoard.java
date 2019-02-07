@@ -8,8 +8,31 @@ public class QueenBoard{
   }
 
 //Private methods (suggested):
-  private boolean addQueen(int r, int c)
-  private boolean removeQueen(int r, int c)
+  private boolean addQueen(int r, int c){
+    //-1 means there is a queen
+    /*Starting board
+    [0][0][0][0]
+    [0][0][0][0]
+    [0][0][0][0]
+    [0][0][0][0]
+    */
+    //addQueen(3, 3)
+    /*Resulting board
+    [0][0][0][0]
+    [0][0][0][0]
+    [0][0][0][0]
+    [0][0][0][-1]
+    */
+    //Must ensure that there is a 0 in the original spot
+    if (board[r][c]==0){
+      board[r][c] = -1;
+      return true;
+    }
+    return false; //couldn't place a queen down
+  }
+  private boolean removeQueen(int r, int c){
+
+  }
 
 
 //Public Methods:
