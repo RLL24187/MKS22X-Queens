@@ -8,8 +8,10 @@ public class Driver{
     [0][0][0][0]
     [0][0][0][0]
     */
+    System.out.println(q.toString());
     q.addQueen(3, 3);
     System.out.println(q.toString());
+    System.out.println(q.toStringDebug());
     /*Resulting board
     [0][0][0][0]
     [0][0][0][0]
