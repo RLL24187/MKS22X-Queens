@@ -69,7 +69,24 @@ public class QueenBoard{
     return output;
   }
 
-
+  public String toStringDebug(){
+    String output = "";
+    for (int i = 0; i < board.length; i++){
+      for (int j = 0; j < board.length; j++){
+        if (QueenHere(i,j)){
+          output+= 'Q';
+        }
+        else{
+          output+= board[j][i];
+        }
+        if (j!= board.length - 1){
+          output+=" ";
+        }
+      }
+      output += "\n";
+    }
+    return output;
+  }
   /**
   *@return false when the board is not solveable and leaves the board filled with zeros;
   *        true when the board is solveable, and leaves the board in a solved state
