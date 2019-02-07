@@ -31,12 +31,12 @@ public class QueenBoard{
     return false; //couldn't place a queen down
   }
   public boolean removeQueen(int r, int c){
-
+    return true;
   }
 
-public boolean QueenHere(int r, int c){
-
-}
+  public boolean QueenHere(int r, int c){
+    return board[r][c]==-1;
+  }
 //Public Methods:
   /**
   *@return The output string formatted as follows:
@@ -54,11 +54,17 @@ public boolean QueenHere(int r, int c){
     String output = "";
     for (int i = 0; i < board.length; i++){
       for (int j = 0; j < board.length; j++){
-        output += board[i][j];
+        if (QueenHere(i,j)){
+          output+= 'Q';
+        }
+        else{
+          output+= '_';
+        }
         if (j!= board.length - 1){
           output+=" ";
         }
       }
+      output += "\n";
     }
     return output;
   }
@@ -69,12 +75,16 @@ public boolean QueenHere(int r, int c){
   *        true when the board is solveable, and leaves the board in a solved state
   *@throws IllegalStateException when the board starts with any non-zero value
   */
-  public boolean solve(){}
+  public boolean solve(){
+    return true;
+  }
 
   /**
   *@return the number of solutions found, and leaves the board filled with only 0's
   *@throws IllegalStateException when the board starts with any non-zero value
   */
-  public int countSolutions(){}
+  public int countSolutions(){
+    return 0;
+  }
 
 }
