@@ -8,7 +8,7 @@ public class QueenBoard{
   }
 
 //Private methods (suggested):
-  private boolean addQueen(int r, int c){
+  public boolean addQueen(int r, int c){
     //-1 means there is a queen
     /*Starting board
     [0][0][0][0]
@@ -30,11 +30,13 @@ public class QueenBoard{
     }
     return false; //couldn't place a queen down
   }
-  private boolean removeQueen(int r, int c){
+  public boolean removeQueen(int r, int c){
 
   }
 
+public boolean QueenHere(int r, int c){
 
+}
 //Public Methods:
   /**
   *@return The output string formatted as follows:
@@ -48,7 +50,18 @@ public class QueenBoard{
   *(pythonic string notation for clarity,
   *excludes the character up to the *)
   */
-  public String toString(){}
+  public String toString(){
+    String output = "";
+    for (int i = 0; i < board.length; i++){
+      for (int j = 0; j < board.length; j++){
+        output += board[i][j];
+        if (j!= board.length - 1){
+          output+=" ";
+        }
+      }
+    }
+    return output;
+  }
 
 
   /**
