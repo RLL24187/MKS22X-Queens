@@ -25,24 +25,24 @@ public class QueenBoard{
     [0][0][1][1]
     [1][1][1][-1]
     */
-    //line eqn of topleft-botright Q diagonal is r = -1(c-ccor)+rcor
-    //                                           r = ccor - c + rcor
-    //line eqn of topright-botleft Q diagonal is r = 1(c-ccor)+rcor
-    //                                           r = c - ccor + rcor
+    //line eqn of top left - bot right Q diagonal is r = -1(c-ccor)+rcor
+    //                                               r = ccor - c + rcor
+    //line eqn of top right - bot left Q diagonal is r = 1(c-ccor)+rcor
+    //                                               r = c - ccor + rcor
     //Must ensure that there is a 0 in the original spot
-    //Also, r and c must both me less than the size and nonnegative
+    //Also, r and c must both be less than the size and nonnegative
     if (board[r][c]==0 && r < board.length && c < board.length && r>=0 && c>=0){
       board[r][c] = -1;
       //loop through the row, col, and diagonals and add 1
-      for (int i = 0; i < board.length; i++){
-        for (int j = 0; j < board.length; j++){
-          if (!queenHere(i,j)){
-            if (i == r //rows equal
-            ||  j == c //cols equal
-            ||  i == j - c + r // on diagonal top left - bot right
-            ||  i == c - j + r // on diagonal top right - bot left
+      for (int y = 0; y < board.length; y++){ //rows
+        for (int x = 0; x < board.length; x++){ //cols
+          if (!(y==r && x==c)){
+            if (y == r //rows equal
+            ||  x == c //cols equal
+            ||  y == x - c + r // on diagonal top left - bot right
+            ||  y == c - x + r // on diagonal top right - bot left
             )
-            board[i][j]++; //increase the number by 1
+            board[y][x]++; //increase the number by 1
           }
         }
       }
@@ -55,6 +55,19 @@ public class QueenBoard{
   public boolean removeQueen(int r, int c){
     if (r < board.length && r>=0 && c>=0 && c < board.length && queenHere(r, c)){
       board[r][c] = 0;
+      //loop through the row, col, and diagonals and subtract 1
+      for (int i = 0; i < board.length; i++){
+        for (int j = 0; j < board.length; j++){
+          if (!(i==r && j==c)){
+            if (i == r //rows equal
+            ||  j == c //cols equal
+            ||  i == j - c + r // on diagonal top left - bot right
+            ||  i == c - j + r // on diagonal top right - bot left
+            )
+            board[i][j]--; //decrease the number by 1
+          }
+        }
+      }
       numQueens--;
       return true;
     }
@@ -105,7 +118,7 @@ public class QueenBoard{
           output+= 'Q';
         }
         else{
-          output+= board[j][i];
+          output+= board[i][j];
         }
         if (j!= board.length - 1){
           output+=" ";
