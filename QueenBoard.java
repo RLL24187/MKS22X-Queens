@@ -1,10 +1,12 @@
 public class QueenBoard{
 //Instance Variables:
   private int[][]board;
+  private int numQueens; //Keeps track of how many queens there are on the board
 
 //Constructor:
   public QueenBoard(int size){
     board = new int[size][size];
+    numQueens = 0;
   }
 
 //Private methods (suggested):
@@ -18,15 +20,33 @@ public class QueenBoard{
     */
     //addQueen(3, 3)
     /*Resulting board
-    [0][0][0][0]
-    [0][0][0][0]
-    [0][0][0][0]
-    [0][0][0][-1]
+    [1][0][0][1]
+    [0][1][0][1]
+    [0][0][1][1]
+    [1][1][1][-1]
     */
+    //line eqn of topleft-botright Q diagonal is r = -1(c-ccor)+rcor
+    //                                           r = ccor - c + rcor
+    //line eqn of topright-botleft Q diagonal is r = 1(c-ccor)+rcor
+    //                                           r = c - ccor + rcor
     //Must ensure that there is a 0 in the original spot
     //Also, r and c must both me less than the size and nonnegative
     if (board[r][c]==0 && r < board.length && c < board.length && r>=0 && c>=0){
       board[r][c] = -1;
+      //loop through the row, col, and diagonals and add 1
+      for (int i = 0; i < board.length; i++){
+        for (int j = 0; j < board.length; j++){
+          if (!queenHere(i,j)){
+            if (i == r //rows equal
+            ||  j == c //cols equal
+            ||  i == j - c + r // on diagonal top left - bot right
+            ||  i == c - j + r // on diagonal top right - bot left
+            )
+            board[i][j]++; //increase the number by 1
+          }
+        }
+      }
+      numQueens++;
       return true;
     }
     return false; //couldn't place a queen down
@@ -35,6 +55,7 @@ public class QueenBoard{
   public boolean removeQueen(int r, int c){
     if (r < board.length && r>=0 && c>=0 && c < board.length && queenHere(r, c)){
       board[r][c] = 0;
+      numQueens--;
       return true;
     }
     return false;
@@ -111,10 +132,25 @@ public class QueenBoard{
   *        true when the board is solveable, and leaves the board in a solved state
   *@throws IllegalStateException when the board starts with any non-zero value
   */
+  /*
   public boolean solve(){
-
-    return true;
+    if (!allZero()){
+      throw new IllegalStateException("solve() only works on blank boards!");
+    }
+    return solveHelper();
   }
+
+  public boolean solveHelper(){
+    QueenBoard temp = new QueenBoard(board.length); //Copy of a QueenBoard
+    int queens = 0;
+    for (int r = 0; r < board.length; r++){
+      for (int c = 0; c < board.length; c++){
+        if (addQueen(r,c));
+      }
+    }
+    if (queens == board.length) //when the number of queens equals the board size, return true
+    return true;
+  }*/
 
   /**
   *@return the number of solutions found, and leaves the board filled with only 0's
