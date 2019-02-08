@@ -24,17 +24,24 @@ public class QueenBoard{
     [0][0][0][-1]
     */
     //Must ensure that there is a 0 in the original spot
-    if (board[r][c]==0){
+    //Also, r and c must both me less than the size and nonnegative
+    if (board[r][c]==0 && r < board.length && c < board.length && r>=0 && c>=0){
       board[r][c] = -1;
       return true;
     }
     return false; //couldn't place a queen down
   }
+
   public boolean removeQueen(int r, int c){
-    return true;
+    if (r < board.length && r>=0 && c>=0 && c < board.length && queenHere){
+      board[r][c] = 0;
+      return true;
+    }
+    return false;
   }
 
-  public boolean QueenHere(int r, int c){
+  //Returns whether or not a queen is in the block
+  public boolean queenHere(int r, int c){
     return board[r][c]==-1;
   }
 //Public Methods:
@@ -54,7 +61,7 @@ public class QueenBoard{
     String output = "";
     for (int i = 0; i < board.length; i++){
       for (int j = 0; j < board.length; j++){
-        if (QueenHere(i,j)){
+        if (queenHere(i,j)){
           output+= 'Q';
         }
         else{
@@ -73,7 +80,7 @@ public class QueenBoard{
     String output = "";
     for (int i = 0; i < board.length; i++){
       for (int j = 0; j < board.length; j++){
-        if (QueenHere(i,j)){
+        if (queenHere(i,j)){
           output+= 'Q';
         }
         else{
