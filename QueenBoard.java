@@ -75,7 +75,7 @@ public class QueenBoard{
   }
 
   public void removeQueen(int r){ //gets rid of all queens in a row
-    for (int i = 0; i < board.length){
+    for (int i = 0; i < board.length;i++){
       removeQueen(r, i);
     }
   }
@@ -161,16 +161,18 @@ public class QueenBoard{
   }
 
   public boolean solveHelper(int r, int c, QueenBoard q){
-    for (int c = 0; c < board.length; c++){
-      if (addQueen(r,c)){ //If you can add a queen, make success true
-        solveHelper(r+1, c);
-      }
-      if (c == board.length - 1 && !addQueen(r,c)){ //If you've gone through all the cols and couldn't place down
-        removeQueen()
-      }
+    if (q.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
+      return q.solveHelper(r+1, c, q);
     }
-    if (queens == board.length) //when the number of queens equals the board size, return true
-    return true;
+    if (numQueens == board.length) {
+      return true;//when the number of queens equals the board size, return true
+    }
+    if (c == board.length - 1 && !q.addQueen(r,c)){ //If you've gone through all the cols and couldn't place down
+      q.removeQueen(r-1);
+      return q.solveHelper(r-1, r, q);
+    }
+    //Otherwise try solveHelper on the next col
+    return q.solveHelper(r, c+1, q);
   }
 
   /**
