@@ -63,5 +63,8 @@ public class Driver{
     q.removeQueen(0);
     System.out.println(q.toStringDebug());
     System.out.println("All values should now be be 0 --> allZero(): true --> "+q.allZero());
+
+    System.out.println("\nTesting solve()");
+    q.solve();
   }
 }
