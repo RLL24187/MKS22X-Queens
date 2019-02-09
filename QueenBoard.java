@@ -74,6 +74,12 @@ public class QueenBoard{
     return false;
   }
 
+  public void removeQueen(int r){ //gets rid of all queens in a row
+    for (int i = 0; i < board.length){
+      removeQueen(r, i);
+    }
+  }
+
   //Returns whether or not a queen is in the block
   public boolean queenHere(int r, int c){
     return board[r][c]==-1;
@@ -145,25 +151,27 @@ public class QueenBoard{
   *        true when the board is solveable, and leaves the board in a solved state
   *@throws IllegalStateException when the board starts with any non-zero value
   */
-  /*
+
   public boolean solve(){
     if (!allZero()){
       throw new IllegalStateException("solve() only works on blank boards!");
     }
-    return solveHelper();
+    QueenBoard temp = new QueenBoard(board.length); //Copy of a QueenBoard
+    return solveHelper(0,0, temp);
   }
 
-  public boolean solveHelper(){
-    QueenBoard temp = new QueenBoard(board.length); //Copy of a QueenBoard
-    int queens = 0;
-    for (int r = 0; r < board.length; r++){
-      for (int c = 0; c < board.length; c++){
-        if (addQueen(r,c));
+  public boolean solveHelper(int r, int c, QueenBoard q){
+    for (int c = 0; c < board.length; c++){
+      if (addQueen(r,c)){ //If you can add a queen, make success true
+        solveHelper(r+1, c);
+      }
+      if (c == board.length - 1 && !addQueen(r,c)){ //If you've gone through all the cols and couldn't place down
+        removeQueen()
       }
     }
     if (queens == board.length) //when the number of queens equals the board size, return true
     return true;
-  }*/
+  }
 
   /**
   *@return the number of solutions found, and leaves the board filled with only 0's
