@@ -55,5 +55,13 @@ public class Driver{
     2 [0][0][0][0]
     3 [0][0][0][0]
     */
+
+
+    System.out.println("Testing removeQueen(int r)");
+    System.out.println("First adding queen to (0, 3): true --> "+q.addQueen(0,3));
+    System.out.println("Now removeQueen(0) should remove all queens from row 0: \n");
+    q.removeQueen(0);
+    System.out.println(q.toStringDebug());
+    System.out.println("All values should now be be 0 --> allZero(): true --> "+q.allZero());
   }
 }
