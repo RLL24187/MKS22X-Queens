@@ -157,6 +157,8 @@ public class QueenBoard{
     }
     return true;
   }
+
+
   /**
   *@return false when the board is not solveable and leaves the board filled with zeros;
   *        true when the board is solveable, and leaves the board in a solved state
@@ -167,30 +169,38 @@ public class QueenBoard{
     if (!allZero()){
       throw new IllegalStateException("solve() only works on blank boards!");
     }
-    QueenBoard temp = new QueenBoard(board.length); //Copy of a QueenBoard
-    return solveHelper(0, 0, temp, this);
+    return solveHelper(0, 0);
   }
 
-  public boolean solveHelper(int r, int c, QueenBoard q, QueenBoard original){
+  public boolean solveHelper(int r, int c){
     if (numQueens == board.length){
-      original = q; //set old to new solved version
       return true; //when the number of queens equals the board size, return true
     }
     if (r == 0 && c >= board.length){
-     //If you've gone through all the rows and cols and couldn't place all the queens down
+      //If you've gone through all the rows and cols and couldn't place all the queens down
+      revert();
       return false;
     }
     if (c >= board.length) { //If you've gone through all the cols and couldn't place down
-    int oldCol = findQueen(r-1);
-      q.removeQueen(r-1);
-      return q.solveHelper(r-1, oldCol+1, q, original);
+      int oldCol = findQueen(r-1);
+      removeQueen(r-1);
+      System.out.println(toStringDebug());
+      return solveHelper(r-1, oldCol+1);
     }
-    if (q.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
-      System.out.println(q.toStringDebug());
-      return q.solveHelper(r+1, 0, q, original);
+    if (this.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
+      System.out.println(toStringDebug());
+      return solveHelper(r+1, 0);
     }
     //Otherwise try solveHelper on the next col
-    return q.solveHelper(r, c+1, q, original);
+    return solveHelper(r, c+1);
+  }
+
+  public void revert(){
+    for (int i = 0; i < board.length; i++){
+      for (int j = 0; j < board.length; j++){
+        board[i][j] = 0;
+      }
+    }
   }
 
   /**
