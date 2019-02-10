@@ -157,29 +157,30 @@ public class QueenBoard{
       throw new IllegalStateException("solve() only works on blank boards!");
     }
     QueenBoard temp = new QueenBoard(board.length); //Copy of a QueenBoard
-    return solveHelper(0, 0, 0, temp, this);
+    return solveHelper(0, 0, 0, 0, temp, this);
   }
 
-  public boolean solveHelper(int r, int c, int prevCol, QueenBoard q, QueenBoard original){
+  public boolean solveHelper(int r, int c, int prevRow, int prevCol, QueenBoard q, QueenBoard original){
     q.removeQueen(r);
-    if (q.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
-      System.out.println(q.toStringDebug());
-      return q.solveHelper(r+1, 0, c, q, original);
-    }
-    if (numQueens == board.length) {
-      original = q; //set old to new solved version
-      return true; //when the number of queens equals the board size, return true
-    }
-    if (r == board.length -1 && c == board.length - 1 && !q.addQueen(r, c)){
+    if (prevRow >= q.board.length){
      //If you've gone through all the rows and cols and couldn't place all the queens down
       return false;
     }
+    if (q.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
+      System.out.println(q.toStringDebug());
+      return q.solveHelper(r+1, 0, prevRow, c, q, original);
+    }
+    if (numQueens == board.length){
+      original = q; //set old to new solved version
+      return true; //when the number of queens equals the board size, return true
+    }
     if (c == board.length - 1 && !q.addQueen(r,c)){ //If you've gone through all the cols and couldn't place down
       q.removeQueen(r-1);
-      return q.solveHelper(r-1, c, prevCol, q, original);
+      if (r == 1) prevRow++; //if you need to backtrack to the 0 row, increase prevRow
+      return q.solveHelper(r-1, prevRow, prevRow, prevCol, q, original);
     }
     //Otherwise try solveHelper on the next col
-    return q.solveHelper(r, c+1, prevCol, q, original);
+    return q.solveHelper(r, c+1, prevRow, prevCol, q, original);
   }
 
   /**
