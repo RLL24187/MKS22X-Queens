@@ -13,6 +13,8 @@ public class Driver{
     System.out.println("Testing toStringDebug: \n"+q4.toStringDebug());
     System.out.println("Adding queen to (2,1): true --> "+q4.addQueen(2, 1));
     System.out.println(q4.toStringDebug());
+    System.out.println("Testing toString again: \n");
+    System.out.println(q4.toString());
     System.out.println("Attempting to add queen to (2,1) again: false --> "+q4.addQueen(2, 1));
     System.out.println(q4.toStringDebug());
     System.out.println("Attempting to add queen to (2,0) same row: false --> "+q4.addQueen(2, 0));
@@ -64,10 +66,68 @@ public class Driver{
     System.out.println(q4.toStringDebug());
     System.out.println("All values should now be be 0 --> allZero(): true --> "+q4.allZero());
 
+    QueenBoard q0 = new QueenBoard(0);
     QueenBoard q1 = new QueenBoard(1);
     QueenBoard q2 = new QueenBoard(2);
     QueenBoard q3 = new QueenBoard(3);
-    System.out.println("\nTesting solve() on a 4x4");
-    q4.solve();
+
+    QueenBoard q5 = new QueenBoard(5);
+    QueenBoard q6 = new QueenBoard(6);
+    QueenBoard q7 = new QueenBoard(7);
+    QueenBoard q8 = new QueenBoard(8);
+
+    System.out.println("\nTesting solve() on a 0x0: true --> \n");
+    System.out.println(q0.solve());
+    System.out.println("\nq0 should stll look the same, since there are no rows or cols.");
+    System.out.println(q0.toString());
+    System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting solve() on a 1x1: true --> \n");
+    System.out.println(q1.solve());
+    System.out.println("\nq1 should be a single Q.");
+    System.out.println(q1.toString());
+    System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting solve() on a 2x2: false --> \n");
+    System.out.println(q2.solve());
+    System.out.println("\nq2 should only be 0s, since it's impossible to have 2 queens, the board will not be changed");
+    System.out.println(q2.toString());
+    System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting solve() on a 3x3: false --> \n");
+    System.out.println(q3.solve());
+    System.out.println("\nq3 should only be 0s, since it's impossible to have 3 queens, the board will not be changed");
+    System.out.println(q3.toString());
+    System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting solve() on a 4x4: true --> \n");
+    System.out.println(q4.solve());
+    System.out.println("\nq4 should have 4 Qs: the board should be changed");
+    System.out.println(q4.toString());
+    System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting solve() on a 5x5: true --> \n");
+    System.out.println(q5.solve());
+    System.out.println("\nq5 should have 5 Qs: the board should be changed");
+    System.out.println(q5.toString());
+    System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting solve() on a 6x6: true --> \n");
+    System.out.println(q6.solve());
+    System.out.println("\nq6 should have 6 Qs: the board should be changed");
+    System.out.println(q6.toString());
+    System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting solve() on a 7x7: true --> \n");
+    System.out.println(q7.solve());
+    System.out.println("\nq7 should have 7 Qs: the board should be changed");
+    System.out.println(q7.toString());
+    System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting solve() on a 8x8: true --> \n");
+    System.out.println(q8.solve());
+    System.out.println("\nq4 should have 8 Qs: the board should be changed");
+    System.out.println(q8.toString());
+    System.out.println("-----------------------------------------------------\n");
   }
 }
