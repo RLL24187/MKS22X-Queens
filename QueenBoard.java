@@ -84,6 +84,17 @@ public class QueenBoard{
   public boolean queenHere(int r, int c){
     return board[r][c]==-1;
   }
+
+  //returns column of the queen in the row specified
+  public int findQueen(int r){
+    for (int i = 0; i < board.length; i++){
+      if (queenHere(r, i)){
+        return i;
+      }
+    }
+    return -1; //no queen found
+  }
+
 //Public Methods:
   /**
   *@return The output string formatted as follows:
@@ -157,30 +168,29 @@ public class QueenBoard{
       throw new IllegalStateException("solve() only works on blank boards!");
     }
     QueenBoard temp = new QueenBoard(board.length); //Copy of a QueenBoard
-    return solveHelper(0, 0, 0, 0, temp, this);
+    return solveHelper(0, 0, temp, this);
   }
 
-  public boolean solveHelper(int r, int c, int prevRow, int prevCol, QueenBoard q, QueenBoard original){
-    q.removeQueen(r);
-    if (prevRow >= q.board.length){
-     //If you've gone through all the rows and cols and couldn't place all the queens down
-      return false;
-    }
-    if (q.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
-      System.out.println(q.toStringDebug());
-      return q.solveHelper(r+1, 0, prevRow, c, q, original);
-    }
+  public boolean solveHelper(int r, int c, QueenBoard q, QueenBoard original){
     if (numQueens == board.length){
       original = q; //set old to new solved version
       return true; //when the number of queens equals the board size, return true
     }
-    if (c == board.length - 1 && !q.addQueen(r,c)){ //If you've gone through all the cols and couldn't place down
+    if (r == 0 && c >= board.length){
+     //If you've gone through all the rows and cols and couldn't place all the queens down
+      return false;
+    }
+    if (c >= board.length) { //If you've gone through all the cols and couldn't place down
+    int oldCol = findQueen(r-1);
       q.removeQueen(r-1);
-      if (r == 1) prevRow++; //if you need to backtrack to the 0 row, increase prevRow
-      return q.solveHelper(r-1, prevRow, prevRow, prevCol, q, original);
+      return q.solveHelper(r-1, oldCol+1, q, original);
+    }
+    if (q.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
+      System.out.println(q.toStringDebug());
+      return q.solveHelper(r+1, 0, q, original);
     }
     //Otherwise try solveHelper on the next col
-    return q.solveHelper(r, c+1, prevRow, prevCol, q, original);
+    return q.solveHelper(r, c+1, q, original);
   }
 
   /**
