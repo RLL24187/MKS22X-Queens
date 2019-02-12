@@ -149,13 +149,29 @@ public class Driver{
     q1.revert();
     System.out.println(q1.countSolutions());
 
-    System.out.println("\nTesting countSolutions() on a 12x12 --> 92 \n");
-    q12.revert();
-    System.out.println(q12.countSolutions());
+    System.out.println("\nTesting countSolutions() on a 2x2 --> 0 \n");
+    q2.revert();
+    System.out.println(q2.countSolutions());
 
     System.out.println("\nTesting countSolutions() on a 3x3 --> 0 \n");
     q3.revert();
     System.out.println(q3.countSolutions());
+
+    System.out.println("\nTesting countSolutions() on a 4x4 --> 2 \n");
+    q4.revert();
+    System.out.println(q4.countSolutions());
+
+    System.out.println("\nTesting countSolutions() on a 12x12 --> 92 \n");
+    q12.revert();
+    System.out.println(q12.countSolutions());
+
+    System.out.println("\nTesting countSolutions() on a 13x13 --> 352 \n");
+    q13.revert();
+    System.out.println(q13.countSolutions());
+
+    System.out.println("\nTesting countSolutions() on a 14x14 --> 724 \n");
+    q14.revert();
+    System.out.println(q14.countSolutions());
 
     //System.out.println(Text.go(1,1));
     //System.out.println(this);Text.wait(50); //adjust this delay
