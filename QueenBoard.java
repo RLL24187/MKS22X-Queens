@@ -74,10 +74,15 @@ public class QueenBoard{
     return false;
   }
 
-  public void removeQueen(int r){ //gets rid of all queens in a row
-    for (int i = 0; i < board.length;i++){
-      removeQueen(r, i);
+  public boolean removeQueen(int r){ //gets rid of all queens in a row
+    boolean removed = false;
+    int i = 0;
+    while (!removed && i<board.length){
+      i++;
+      if (removeQueen(r, i))
+      removed = true;
     }
+    return removed;
   }
 
   //Returns whether or not a queen is in the block
@@ -169,10 +174,27 @@ public class QueenBoard{
     if (!allZero()){
       throw new IllegalStateException("solve() only works on blank boards!");
     }
-    return solveHelper(0, 0);
+    return solveHelper(0);
+    //return solveHelper(0, 0);
   }
 
-  public boolean solveHelper(int r, int c){
+  private boolean solveHelper(int c){
+    //Using Mr. K's pseudocode
+    if (c >= board.length){ //if c is past the board length
+      return true; //return true
+    }
+    for (int r = 0; r < board.length; r++) {//increasing the row
+      if (addQueen(r, c)) { //If you can add the queen
+        if (solveHelper(c+1)) { //and you can add in the next column
+          return true;
+        }
+        removeQueen(r, c); //otherwise remove the queen you've just added
+      }
+    }
+    return false; //if you've gone through everything but couldn't find a solution
+  }
+  //old method: kept getting StackOverFlowError
+  /*public boolean solveHelper(int r, int c){
     if (numQueens == board.length){
       return true; //when the number of queens equals the board size, return true
     }
@@ -183,17 +205,17 @@ public class QueenBoard{
     }
     if (c >= board.length) { //If you've gone through all the cols and couldn't place down
       int oldCol = findQueen(r-1);
-      removeQueen(r-1);
-      System.out.println(toStringDebug());
+      removeQueen(r-1, oldCol);
+      //System.out.println(toStringDebug());
       return solveHelper(r-1, oldCol+1);
     }
-    if (this.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
-      System.out.println(toStringDebug());
+    if (addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
+      //System.out.println(toStringDebug());
       return solveHelper(r+1, 0);
     }
     //Otherwise try solveHelper on the next col
     return solveHelper(r, c+1);
-  }
+  }*/
 
   public void revert(){
     for (int i = 0; i < board.length; i++){
@@ -208,7 +230,32 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
-    return 0;
+    if (!allZero()){
+      throw new IllegalStateException("solve() only works on blank boards!");
+    }
+    return countSolveHelper(0, 0, 0);
   }
 
+  public int countSolveHelper(int r, int c, int sum){
+    if (numQueens == board.length){
+      sum++;
+      return 0; //when the number of queens equals the board size, return true
+    }
+    if (r == 0 && c >= board.length){
+      //If you've gone through all the rows and cols and couldn't place all the queens d
+      return 0; //dummy returns
+    }
+    if (c >= board.length) { //If you've gone through all the cols and couldn't place down
+      int oldCol = findQueen(r-1);
+      removeQueen(r-1); //remove the queen before
+      System.out.println(toStringDebug());
+      return countSolveHelper(r-1, oldCol+1, sum); //backtrack to row before and try to add the queen to the next spot
+    }
+    if (this.addQueen(r,c)){ //If you can add a queen, do solveHelper on the next row
+      System.out.println(toStringDebug());
+      return countSolveHelper(r+1, 0, sum);
+    }
+    //Otherwise try solveHelper on the next col
+    return countSolveHelper(r, c+1, sum);
+  }
 }
