@@ -233,23 +233,23 @@ public class QueenBoard{
     if (!allZero()){
       throw new IllegalStateException("solve() only works on blank boards!");
     }
-    return countSolveHelper(0, 0);
+    return countHelper(0, 0);
   }
 
 
-  private int countSolveHelper(int c, int sum){
+  private int countHelper(int c, int sum){
     //Mr. K's pseudocode
     if (c == board.length){
       return 1;
     }
     //sum is a counter variable
     for (int r = 0; r < board.length; r++){ //loop thru all the rows
-      if (addQueen(r,c){ //if you can add the queen
-        return countHelp(c+1, sum+1); //attempt at tail recursion
+      if (addQueen(r,c)){ //if you can add the queen
+        return countHelper(c+1, sum+1); //attempt at tail recursion
       }
       removeQueen(r, c);
     }
-    return countHelp(c+1, sum);
+    return countHelper(c+1, sum);
 
     //Old attempted code
     /*
