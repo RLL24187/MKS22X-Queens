@@ -233,10 +233,26 @@ public class QueenBoard{
     if (!allZero()){
       throw new IllegalStateException("solve() only works on blank boards!");
     }
-    return countSolveHelper(0, 0, 0);
+    return countSolveHelper(0, 0);
   }
 
-  public int countSolveHelper(int r, int c, int sum){
+
+  private int countSolveHelper(int c, int sum){
+    //Mr. K's pseudocode
+    if (c == board.length){
+      return 1;
+    }
+    //sum is a counter variable
+    for (int r = 0; r < board.length; r++){ //loop thru all the rows
+      if (addQueen(r,c){ //if you can add the queen
+        return countHelp(c+1, sum+1); //attempt at tail recursion
+      }
+      removeQueen(r, c);
+    }
+    return countHelp(c+1, sum);
+
+    //Old attempted code
+    /*
     if (numQueens == board.length){
       sum++;
       return 0; //when the number of queens equals the board size, return true
@@ -257,5 +273,6 @@ public class QueenBoard{
     }
     //Otherwise try solveHelper on the next col
     return countSolveHelper(r, c+1, sum);
+    */
   }
 }

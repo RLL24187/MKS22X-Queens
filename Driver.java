@@ -75,7 +75,8 @@ public class Driver{
     QueenBoard q6 = new QueenBoard(6);
     QueenBoard q7 = new QueenBoard(7);
     QueenBoard q8 = new QueenBoard(8);
-    QueenBoard q13 = new QueenBoard(13); //Last number before StackOverFlowError
+    QueenBoard q12 = new QueenBoard(12);
+    QueenBoard q13 = new QueenBoard(13);
     QueenBoard q14 = new QueenBoard(14);
 
     System.out.println("\nTesting solve() on a 0x0: true --> \n");
@@ -143,6 +144,18 @@ public class Driver{
     System.out.println("\nq13 should have 14 Qs: the board should be changed");
     System.out.println(q14.toString());
     System.out.println("-----------------------------------------------------\n");
+
+    System.out.println("\nTesting countSolutions() on a 1x1 --> 1 \n");
+    q1.revert();
+    System.out.println(q1.countSolutions());
+
+    System.out.println("\nTesting countSolutions() on a 12x12 --> 92 \n");
+    q12.revert();
+    System.out.println(q12.countSolutions());
+
+    System.out.println("\nTesting countSolutions() on a 3x3 --> 0 \n");
+    q3.revert();
+    System.out.println(q3.countSolutions());
 
     //System.out.println(Text.go(1,1));
     //System.out.println(this);Text.wait(50); //adjust this delay
