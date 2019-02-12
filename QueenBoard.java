@@ -175,7 +175,6 @@ public class QueenBoard{
       throw new IllegalStateException("solve() only works on blank boards!");
     }
     return solveHelper(0);
-    //return solveHelper(0, 0);
   }
 
   private boolean solveHelper(int c){
@@ -231,7 +230,7 @@ public class QueenBoard{
   */
   public int countSolutions(){
     if (!allZero()){
-      throw new IllegalStateException("solve() only works on blank boards!");
+      throw new IllegalStateException("countSolutions() only works on blank boards!");
     }
     return countHelper(0);
   }
@@ -241,11 +240,11 @@ public class QueenBoard{
     //Mr. K's pseudocode
     if (c == board.length) return 1;
     int sum = 0; //counter variable
-    for (int r = 0; r < board.length; r++) {
-      if (addQueen(r,c)) {
-        sum+=countHelper(c+1); //attempt to make this tail recursion
+    for (int r = 0; r < board.length; r++){
+      if (addQueen(r,c)){ //if you can add the queen
+        sum+=countHelper(c+1); //the sum increases by the recursive return of the next column
       }
-      removeQueen(r,c);
+      removeQueen(r,c); //remove the queen if you can't add to next column
     }
     return sum;
 
