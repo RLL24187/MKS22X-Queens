@@ -74,7 +74,7 @@ public class Driver{
     catch (IllegalStateException e){
       System.out.println(e);
     }
-    
+
     System.out.println("\nNow removeQueen(0) should remove all queens from row 0: \n");
     q4.removeQueen(0);
     System.out.println(q4.toStringDebug());
@@ -158,6 +158,11 @@ public class Driver{
     System.out.println("\nq13 should have 14 Qs: the board should be changed");
     System.out.println(q14.toString());
     System.out.println("-----------------------------------------------------\n");
+
+
+    System.out.println("\nTesting countSolutions() on a 0x0 --> 1 \n");
+    q0.revert();
+    System.out.println(q0.countSolutions());
 
     System.out.println("\nTesting countSolutions() on a 1x1 --> 1 \n");
     q1.revert();

@@ -232,12 +232,15 @@ public class QueenBoard{
     if (!allZero()){
       throw new IllegalStateException("countSolutions() only works on blank boards!");
     }
+    if (board.length==0)
+    return 1; //case for 0x0 board
     return countHelper(0);
   }
 
 
   private int countHelper(int c){
     //Mr. K's pseudocode
+
     if (c == board.length) return 1;
     int sum = 0; //counter variable
     for (int r = 0; r < board.length; r++){
