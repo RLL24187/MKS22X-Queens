@@ -61,7 +61,21 @@ public class Driver{
 
     System.out.println("Testing removeQueen(int r)");
     System.out.println("First adding queen to (0, 3): true --> "+q4.addQueen(0,3));
-    System.out.println("Now removeQueen(0) should remove all queens from row 0: \n");
+    System.out.println("Attempt doing solve() and countSolutions() --> should catch exception");
+    try{
+      q4.solve();
+    }
+    catch (IllegalStateException e){
+      System.out.println(e);
+    }
+    try{
+      q4.countSolutions();
+    }
+    catch (IllegalStateException e){
+      System.out.println(e);
+    }
+    
+    System.out.println("\nNow removeQueen(0) should remove all queens from row 0: \n");
     q4.removeQueen(0);
     System.out.println(q4.toStringDebug());
     System.out.println("All values should now be be 0 --> allZero(): true --> "+q4.allZero());
