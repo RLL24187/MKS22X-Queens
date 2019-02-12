@@ -161,15 +161,15 @@ public class Driver{
     q4.revert();
     System.out.println(q4.countSolutions());
 
-    System.out.println("\nTesting countSolutions() on a 12x12 --> 92 \n");
+    System.out.println("\nTesting countSolutions() on a 12x12 --> 14200 \n");
     q12.revert();
     System.out.println(q12.countSolutions());
 
-    System.out.println("\nTesting countSolutions() on a 13x13 --> 352 \n");
+    System.out.println("\nTesting countSolutions() on a 13x13 --> 73712 \n");
     q13.revert();
     System.out.println(q13.countSolutions());
 
-    System.out.println("\nTesting countSolutions() on a 14x14 --> 724 \n");
+    System.out.println("\nTesting countSolutions() on a 14x14 --> 365596 \n");
     q14.revert();
     System.out.println(q14.countSolutions());
 
